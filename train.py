@@ -158,6 +158,17 @@ def main() -> None:
 
     print(f"Saved best checkpoint to {CHECKPOINT_PATH} with val loss {best_val_loss:.6f}")
 
+    torch.save(
+        {
+            "embeddings": model.input_projection.state_dict(),
+            "positional_embedding": model.positional_embedding.state_dict(),
+            "transformer": model.transformer.state_dict(),
+            "prediction_head": model.prediction_head.state_dict(),
+        },
+        "robot_transformer.pt",
+    )
+    print("Saved component state dicts to robot_transformer.pt")
+
 
 if __name__ == "__main__":
     main()
